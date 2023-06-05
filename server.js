@@ -7,6 +7,7 @@ import connectDB from "./config/connectDB.js";
 import userRoute from "./routes/userRoute.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import path from "path";
+
 //* config
 dotenv.config();
 connectDB();
@@ -22,11 +23,11 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/transaction", transactionRoutes);
 
 //* stativ files
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html")); 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "client", "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
-
 //* port
 const PORT = process.env.PORT || 8080;
 
